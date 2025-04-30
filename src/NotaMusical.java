@@ -1,9 +1,9 @@
-public abstract class Melodia {
+public class NotaMusical {
 
     private String nota, figura;
     private int octava;
 
-    public Melodia(String nota, String figura, int octava) {
+    public NotaMusical(String nota, String figura, int octava) {
         this.nota = nota;
         this.figura = figura;
         this.octava = octava;

@@ -23,6 +23,7 @@ public class FrmPiano extends JFrame {
     String[] notas = new String[] {"DO", "RE", "MI", "FA", "SOL", "LA", "SI"};
     String[] figuras = new String[] {"REDONDA", "BLANCA", "NEGRA", "CORCHEA"};
     String[] octavas = new String[] {"0", "3", "4", "5"};
+    String nota;
 
     public FrmPiano() {
 
@@ -148,6 +149,21 @@ public class FrmPiano extends JFrame {
 
     }
 
+    public void agregarNotas() {
+
+        Nota nota = new Nota();
+
+        String not = String.valueOf(cmbnotas.getSelectedIndex());
+        String fig = String.valueOf(cmbfiguras.getSelectedIndex());
+        int oct = cmboctavas.getSelectedIndex();
+
+        NotaMusical nueva = new NotaMusical(not, fig, oct);
+
+        nota.agregarNodo(nueva);
+
+
+    }
+
     public void buscar() {
 
     }
@@ -157,30 +173,37 @@ public class FrmPiano extends JFrame {
     }
 
 
-    String[] datos = new String[20];
-    int total = -1;
-    String[][] strtbl = new String[20][titulos.length];
+    private Nota notica = new Nota();
+
+    String[][] strtbl = new String[5][2];
 
     public void agregar() {
 
+        String not = String.valueOf(cmbnotas.getSelectedIndex());
+        String fig = String.valueOf(cmbfiguras.getSelectedIndex());
+        int oct = cmboctavas.getSelectedIndex();
+
+        NotaMusical nueva = new NotaMusical(not, fig, oct);
+
+        Nodo actual = new Nodo(nueva);
+
+        notica.agregarNodo(nueva);
+
         try {
-            
-            String dt = "";
-            
-            int nota = cmbnotas.getSelectedIndex();
-            int figura = cmbfiguras.getSelectedIndex();
-            int octava = cmboctavas.getSelectedIndex();
-            
-            dt = notas[nota];
-            
-            total++;
-            datos[total] = dt;
 
-            for(int i = 0; i < datos.length; i++) {
+            int i = 0;
 
-                strtbl[i][0] = datos[i];
+            while(actual.siguiente != null) {
+
+                strtbl[i][0] = nueva.getNota();
+                strtbl[i][1] = nueva.getFigura();
+                strtbl[i][2] = String.valueOf(nueva.getOctava());
+
+                actual = actual.siguiente;
+
+                i++;
             }
-    
+        
             DefaultTableModel dtm = new DefaultTableModel(strtbl, titulos);
             tblinfo.setModel(dtm);
 
