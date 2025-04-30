@@ -1,14 +1,12 @@
-public class Nota {
+public class Melodia {
 
     private Nodo cabeza;
 
-    public Nota() {
+    public Melodia() {
         cabeza = null;
     }
 
-    public void agregarNodo(NotaMusical nota) {
-
-        Nodo nodo = new Nodo(nota);
+    public void agregarNodo(Nodo nodo) {
 
         if(cabeza == null) {
             cabeza = nodo;
@@ -25,6 +23,16 @@ public class Nota {
 
         nodo.siguiente = null;
 
+    }
+
+    public void almacenar() {
+
+        Nodo actual = cabeza;
+
+        while(actual != null) {
+            actual.getNotamusical();
+            actual = actual.siguiente;
+        }
     }
 
     public void modificarNodo(Nodo nodo) {

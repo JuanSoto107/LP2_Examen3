@@ -1,19 +1,26 @@
 public class Nodo {
 
-    private NotaMusical nota;
+    private NotaMusical notamusical;
     public Nodo siguiente;
 
-    public Nodo(NotaMusical nota) {
-        this.nota = nota;
+
+    public Nodo(NotaMusical notamusical) {
+        this.notamusical = notamusical;
     }
 
-    public NotaMusical getNota() {
-        return nota;
+
+    public NotaMusical getNotamusical() {
+        return notamusical;
     }
 
-    public void setNota(NotaMusical nota) {
-        this.nota = nota;
+
+    public void setNotamusical(NotaMusical notamusical) {
+        this.notamusical = notamusical;
     }
+
+    
+
+    
 
     
 

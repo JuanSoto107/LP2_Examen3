@@ -157,12 +157,13 @@ public class FrmPiano extends JFrame {
 
     }
 
-    String not, fig = null;
+    Notas not = null;
+    Figura fig = null;
     int oct = 0;
 
     public void agregar() {
 
-        NotaMusical notmus = null;
+        NotaMusical notamusical = null;
 
         int ind = cmbnotas.getSelectedIndex();
         int ind2 = cmbfiguras.getSelectedIndex();
@@ -171,27 +172,63 @@ public class FrmPiano extends JFrame {
         switch (ind) {
 
             case 0:
-            not = notas[ind];
+            not = not.DO;
+            break;
+            case 1:
+            not = not.RE;
+            break;
+            case 2:
+            not = not.MI;
+            break;
+            case 3:
+            not = not.FA;
+            break;
+            case 4:
+            not = not.SOL;
+            break;
+            case 5:
+            not = not.SI;
             break;
         }
 
         switch (ind2) {
 
             case 0:
-            fig = figuras[ind2];
+            fig = fig.REDONDA;
             break;
+            case 1:
+            fig = fig.BLANCA;
+            break;
+            case 2:
+            fig = fig.NEGRA;
+            break;
+            case 3:
+            fig = fig.CORCHEA;
+
         }
 
         switch (ind3) {
 
             case 0:
-            oct = Integer.parseInt(octavas[ind3]);
+            oct = Integer.parseInt(octavas[0]);
             break;
+            case 1:
+            oct = Integer.parseInt(octavas[1]);
+            break;
+            case 2:
+            oct = Integer.parseInt(octavas[2]);
+            break;
+            case 3:
+            oct = Integer.parseInt(octavas[3]);
+            break;
+            
         }
 
-        notmus = new NotaMusical(not, fig, oct);
+        notamusical = new NotaMusical(not, fig, oct);
 
         try {
+
+            JOptionPane.showMessageDialog(null, "Guardado exitosamente");
 
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "Limite excedido");
