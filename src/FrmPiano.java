@@ -161,6 +161,8 @@ public class FrmPiano extends JFrame {
     Figura fig = null;
     int oct = 0;
 
+    private ListaLigada lista;
+
     public void agregar() {
 
         NotaMusical notamusical = null;
@@ -225,6 +227,8 @@ public class FrmPiano extends JFrame {
         }
 
         notamusical = new NotaMusical(not, fig, oct);
+        lista.agregarNodo(new Nodo(notamusical));
+
 
         try {
 

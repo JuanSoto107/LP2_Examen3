@@ -1,8 +1,8 @@
-public class Melodia {
+public class ListaLigada {
 
     private Nodo cabeza;
 
-    public Melodia() {
+    public ListaLigada() {
         cabeza = null;
     }
 
