@@ -149,21 +149,6 @@ public class FrmPiano extends JFrame {
 
     }
 
-    public void agregarNotas() {
-
-        Nota nota = new Nota();
-
-        String not = String.valueOf(cmbnotas.getSelectedIndex());
-        String fig = String.valueOf(cmbfiguras.getSelectedIndex());
-        int oct = cmboctavas.getSelectedIndex();
-
-        NotaMusical nueva = new NotaMusical(not, fig, oct);
-
-        nota.agregarNodo(nueva);
-
-
-    }
-
     public void buscar() {
 
     }
@@ -172,40 +157,41 @@ public class FrmPiano extends JFrame {
 
     }
 
-
-    private Nota notica = new Nota();
-
-    String[][] strtbl = new String[5][2];
+    String not, fig = null;
+    int oct = 0;
 
     public void agregar() {
 
-        String not = String.valueOf(cmbnotas.getSelectedIndex());
-        String fig = String.valueOf(cmbfiguras.getSelectedIndex());
-        int oct = cmboctavas.getSelectedIndex();
+        NotaMusical notmus = null;
 
-        NotaMusical nueva = new NotaMusical(not, fig, oct);
+        int ind = cmbnotas.getSelectedIndex();
+        int ind2 = cmbfiguras.getSelectedIndex();
+        int ind3 = cmboctavas.getSelectedIndex();
 
-        Nodo actual = new Nodo(nueva);
+        switch (ind) {
 
-        notica.agregarNodo(nueva);
+            case 0:
+            not = notas[ind];
+            break;
+        }
+
+        switch (ind2) {
+
+            case 0:
+            fig = figuras[ind2];
+            break;
+        }
+
+        switch (ind3) {
+
+            case 0:
+            oct = Integer.parseInt(octavas[ind3]);
+            break;
+        }
+
+        notmus = new NotaMusical(not, fig, oct);
 
         try {
-
-            int i = 0;
-
-            while(actual.siguiente != null) {
-
-                strtbl[i][0] = nueva.getNota();
-                strtbl[i][1] = nueva.getFigura();
-                strtbl[i][2] = String.valueOf(nueva.getOctava());
-
-                actual = actual.siguiente;
-
-                i++;
-            }
-        
-            DefaultTableModel dtm = new DefaultTableModel(strtbl, titulos);
-            tblinfo.setModel(dtm);
 
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "Limite excedido");
