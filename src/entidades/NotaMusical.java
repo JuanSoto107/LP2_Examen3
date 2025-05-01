@@ -1,3 +1,5 @@
+package entidades;
+
 public class NotaMusical {
 
     private Notas nota;

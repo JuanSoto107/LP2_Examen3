@@ -2,6 +2,11 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+
+import entidades.NotaMusical;
+import entidades.Notas;
+import entidades.Figura;
+
 import javax.swing.JToolBar;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -17,13 +22,13 @@ public class FrmPiano extends JFrame {
 
     JButton btnbuscar, btnguardar, btnagregar, btnmodificar, btneliminar, btnsonido;
     JComboBox cmbnotas, cmbfiguras, cmboctavas;
-    JTable tblinfo;
     DefaultComboBoxModel mdl1, mdl2, mdl3;
+    JTable tblinfo;
     String[] titulos = new String[] {"Nota", "Figura", "Octava"};
     String[] notas = new String[] {"DO", "RE", "MI", "FA", "SOL", "LA", "SI"};
     String[] figuras = new String[] {"REDONDA", "BLANCA", "NEGRA", "CORCHEA"};
     String[] octavas = new String[] {"0", "3", "4", "5"};
-    String nota;
+    String nombreArchivo = "";
 
     public FrmPiano() {
 
@@ -149,12 +154,24 @@ public class FrmPiano extends JFrame {
 
     }
 
-    public void buscar() {
+    private void buscar() {
 
+        nombreArchivo = Archivo.elegirArchivo();
+        if (!nombreArchivo.equals("")) {
+            lista.desdeJSON(nombreArchivo);
+        }
     }
 
-    public void guardar() {
+    private void guardar() {
 
+        nombreArchivo = Archivo.elegirArchivo();
+        if(!nombreArchivo.equals("")) {
+            if(lista.guardarJSON(nombreArchivo)) {
+                JOptionPane.showMessageDialog(null, "Melodia guardada");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al guardar");
+            }
+        }
     }
 
     Notas not = null;
@@ -163,7 +180,7 @@ public class FrmPiano extends JFrame {
 
     private ListaLigada lista = new ListaLigada();
 
-    public void agregar() {
+    private void agregar() {
 
         NotaMusical notamusical = null;
 
@@ -191,15 +208,15 @@ public class FrmPiano extends JFrame {
 
     }
 
-    public void modificar() {
+    private void modificar() {
     
     }
 
-    public void eliminar() {
+    private void eliminar() {
         
     }
 
-    public void sonido() {
+    private void sonido() {
         
     }
     
