@@ -14,6 +14,8 @@ public class ListaLigada {
         cabeza = null;
     }
 
+    
+
     public void agregarNodo(Nodo nodo) {
 
         if(cabeza == null) {
@@ -48,8 +50,46 @@ public class ListaLigada {
 
     }
 
+    private Nodo nodoseleccionado;
+
+    public Nodo getnodoSeleccionado() {
+        return nodoseleccionado;
+    }
+
+    public Nodo seleccionar(int i) {
+        nodoseleccionado = null;
+        Nodo actual = cabeza;
+
+        int j = 0;
+
+        while(j < i) {
+            actual = actual.siguiente;
+            j++;
+        }
+
+        nodoseleccionado = actual;
+
+        return nodoseleccionado;
+    }
+
+
     public void eliminarNodo(Nodo nodo) {
-        
+        Nodo actual = cabeza;
+        Nodo anterior = null;
+
+        while(actual != null) {
+            if(actual == nodo) {
+                if(anterior == null) {
+                    cabeza = actual.siguiente;
+                } else {
+                    anterior.siguiente = actual.siguiente;
+                }  
+                break;
+            }
+            anterior = actual;
+            actual = actual.siguiente;
+
+        }
     }
 
     public int getLongitud() {
@@ -94,6 +134,10 @@ public class ListaLigada {
             }
         }
     
+    }
+
+    public Nodo getCabeza() {
+        return cabeza;
     }            
     
 }

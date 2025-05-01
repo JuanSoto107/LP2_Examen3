@@ -182,23 +182,41 @@ public class FrmPiano extends JFrame {
 
     private void agregar() {
 
-        NotaMusical notamusical = null;
-
-        int ind = cmbnotas.getSelectedIndex();
-        int ind2 = cmbfiguras.getSelectedIndex();
-        int ind3 = cmboctavas.getSelectedIndex();
-
-        not = Notas.values()[ind];
-
-        fig = Figura.values()[ind2];
-
-        oct = Integer.parseInt(octavas[ind3]);
-
-        notamusical = new NotaMusical(not, fig, oct);
-        lista.agregarNodo(new Nodo(notamusical));
-
-
         try {
+
+            NotaMusical notamusical = null;
+
+
+            int ind = cmbnotas.getSelectedIndex();
+            int ind2 = cmbfiguras.getSelectedIndex();
+            int ind3 = cmboctavas.getSelectedIndex();
+    
+            not = Notas.values()[ind];
+            fig = Figura.values()[ind2];
+            oct = Integer.parseInt(octavas[ind3]);
+    
+            notamusical = new NotaMusical(not, fig, oct);
+            lista.agregarNodo(new Nodo(notamusical));
+
+            Nodo actual = lista.getCabeza();
+    
+            int i = 0;            
+            String[][] strtbl = new String[lista.getLongitud()][titulos.length];
+    
+            while(actual != null) {
+    
+                strtbl[i][0] = String.valueOf(actual.getNotamusical().getNota());
+                strtbl[i][1] = String.valueOf(actual.getNotamusical().getFigura());
+                strtbl[i][2] = String.valueOf(actual.getNotamusical().getOctava());
+    
+                i++;
+    
+                actual = actual.siguiente;
+
+            }
+    
+            DefaultTableModel dtm = new DefaultTableModel(strtbl, titulos);
+            tblinfo.setModel(dtm);
 
             JOptionPane.showMessageDialog(null, "Guardado");
 
@@ -213,7 +231,23 @@ public class FrmPiano extends JFrame {
     }
 
     private void eliminar() {
-        
+
+        Nodo actual = lista.getCabeza();
+        int seleccionado = tblinfo.getSelectedRow();
+
+        DefaultTableModel modelo = (DefaultTableModel) tblinfo.getModel();
+        modelo.removeRow(seleccionado);
+
+        while(actual != null) {
+            if(actual == lista.seleccionar(seleccionado)) {
+                lista.eliminarNodo(actual);
+                break;
+            }
+            actual = actual.siguiente;
+        }
+
+
+
     }
 
     private void sonido() {
