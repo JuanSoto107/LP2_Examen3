@@ -161,7 +161,7 @@ public class FrmPiano extends JFrame {
     Figura fig = null;
     int oct = 0;
 
-    private ListaLigada lista;
+    private ListaLigada lista = new ListaLigada();
 
     public void agregar() {
 
@@ -171,60 +171,11 @@ public class FrmPiano extends JFrame {
         int ind2 = cmbfiguras.getSelectedIndex();
         int ind3 = cmboctavas.getSelectedIndex();
 
-        switch (ind) {
+        not = Notas.values()[ind];
 
-            case 0:
-            not = not.DO;
-            break;
-            case 1:
-            not = not.RE;
-            break;
-            case 2:
-            not = not.MI;
-            break;
-            case 3:
-            not = not.FA;
-            break;
-            case 4:
-            not = not.SOL;
-            break;
-            case 5:
-            not = not.SI;
-            break;
-        }
+        fig = Figura.values()[ind2];
 
-        switch (ind2) {
-
-            case 0:
-            fig = fig.REDONDA;
-            break;
-            case 1:
-            fig = fig.BLANCA;
-            break;
-            case 2:
-            fig = fig.NEGRA;
-            break;
-            case 3:
-            fig = fig.CORCHEA;
-
-        }
-
-        switch (ind3) {
-
-            case 0:
-            oct = Integer.parseInt(octavas[0]);
-            break;
-            case 1:
-            oct = Integer.parseInt(octavas[1]);
-            break;
-            case 2:
-            oct = Integer.parseInt(octavas[2]);
-            break;
-            case 3:
-            oct = Integer.parseInt(octavas[3]);
-            break;
-            
-        }
+        oct = Integer.parseInt(octavas[ind3]);
 
         notamusical = new NotaMusical(not, fig, oct);
         lista.agregarNodo(new Nodo(notamusical));
@@ -232,7 +183,7 @@ public class FrmPiano extends JFrame {
 
         try {
 
-            JOptionPane.showMessageDialog(null, "Guardado exitosamente");
+            JOptionPane.showMessageDialog(null, "Guardado");
 
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "Limite excedido");
