@@ -159,6 +159,27 @@ public class FrmPiano extends JFrame {
         nombreArchivo = Archivo.elegirArchivo();
         if (!nombreArchivo.equals("")) {
             lista.desdeJSON(nombreArchivo);
+
+            Nodo actual = lista.getCabeza();
+
+            String[][] strtbl = new String[lista.getLongitud()][titulos.length];
+            int i = 0;  
+
+            while(actual != null) {
+    
+                strtbl[i][0] = String.valueOf(actual.getNotamusical().getNota());
+                strtbl[i][1] = String.valueOf(actual.getNotamusical().getFigura());
+                strtbl[i][2] = String.valueOf(actual.getNotamusical().getOctava());
+    
+                i++;
+    
+                actual = actual.siguiente;
+
+            }
+
+            DefaultTableModel dtm = new DefaultTableModel(strtbl, titulos);
+            tblinfo.setModel(dtm);
+            
         }
     }
 

@@ -6,6 +6,8 @@ import entidades.NotaMusical;
 import entidades.Figura;
 import entidades.Notas;
 
+import javax.swing.JTable;
+
 public class ListaLigada {
 
     private Nodo cabeza;
@@ -134,6 +136,18 @@ public class ListaLigada {
             }
         }
     
+    }
+
+    public void mostrar(JTable tbl) {
+        Nodo actual = cabeza;
+
+        while(actual != null) {
+            actual.getNotamusical().getNota();
+            actual.getNotamusical().getFigura();
+            actual.getNotamusical().getOctava();
+
+            actual = actual.siguiente;
+        }
     }
 
     public Nodo getCabeza() {
