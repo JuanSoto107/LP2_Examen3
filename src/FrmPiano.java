@@ -20,14 +20,14 @@ import java.awt.BorderLayout;
 
 public class FrmPiano extends JFrame {
 
-    JButton btnbuscar, btnguardar, btnagregar, btnmodificar, btneliminar, btnsonido;
+    JButton btncargar, btnguardar, btnagregar, btnmodificar, btneliminar, btnsonido;
     JComboBox cmbnotas, cmbfiguras, cmboctavas;
     DefaultComboBoxModel mdl1, mdl2, mdl3;
     JTable tblinfo;
     String[] titulos = new String[] {"Nota", "Figura", "Octava"};
     String[] notas = new String[] {"DO", "RE", "MI", "FA", "SOL", "LA", "SI"};
     String[] figuras = new String[] {"REDONDA", "BLANCA", "NEGRA", "CORCHEA"};
-    String[] octavas = new String[] {"0", "3", "4", "5"};
+    String[] octavas = new String[] {"2", "3", "4", "5", "6"};
     String nombreArchivo = "";
 
     public FrmPiano() {
@@ -38,14 +38,14 @@ public class FrmPiano extends JFrame {
 
         JToolBar tb = new JToolBar();
 
-        btnbuscar = new JButton();
+        btncargar = new JButton();
         btnguardar = new JButton();
         btnagregar = new JButton();
         btnmodificar = new JButton();
         btneliminar = new JButton();
         btnsonido = new JButton();
 
-        btnbuscar.setIcon(new ImageIcon(getClass().getResource("/iconos/imagen1.png")));
+        btncargar.setIcon(new ImageIcon(getClass().getResource("/iconos/imagen1.png")));
         btnguardar.setIcon(new ImageIcon(getClass().getResource("/iconos/imagen2.png")));
         btnagregar.setIcon(new ImageIcon(getClass().getResource("/iconos/imagen3.png")));
         btnmodificar.setIcon(new ImageIcon(getClass().getResource("/iconos/imagen4.png")));
@@ -53,19 +53,18 @@ public class FrmPiano extends JFrame {
         btnsonido.setIcon(new ImageIcon(getClass().getResource("/iconos/imagen6.png")));
 
 
-        btnbuscar.setToolTipText("Buscar");
+        btncargar.setToolTipText("Cargar");
         btnguardar.setToolTipText("Guardar");
         btnagregar.setToolTipText("Agregar");
         btnmodificar.setToolTipText("Modificar");
         btneliminar.setToolTipText("Eliminar");
         btnsonido.setToolTipText("Sonido");
 
-        btnbuscar.addActionListener(new ActionListener() {
+        btncargar.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                buscar();
+                cargar();
             }
-
 
         });
 
@@ -75,7 +74,6 @@ public class FrmPiano extends JFrame {
                 guardar();
             }
 
-
         });
 
         btnagregar.addActionListener(new ActionListener() {
@@ -83,7 +81,6 @@ public class FrmPiano extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 agregar();
             }
-
 
         });
 
@@ -93,7 +90,6 @@ public class FrmPiano extends JFrame {
                 modificar();
             }
 
-
         });
 
         btneliminar.addActionListener(new ActionListener() {
@@ -102,7 +98,6 @@ public class FrmPiano extends JFrame {
                 eliminar();
             }
 
-
         });
 
         btnsonido.addActionListener(new ActionListener() {
@@ -110,7 +105,6 @@ public class FrmPiano extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 sonido();
             }
-
 
         });
 
@@ -127,7 +121,7 @@ public class FrmPiano extends JFrame {
         cmboctavas.setModel(mdl3);
 
 
-        tb.add(btnbuscar);
+        tb.add(btncargar);
         tb.add(btnguardar);
         tb.add(cmbnotas);
         tb.add(cmbfiguras);
@@ -143,18 +137,12 @@ public class FrmPiano extends JFrame {
         DefaultTableModel dtm = new DefaultTableModel(null, titulos);
         tblinfo.setModel(dtm);
 
-
-
         getContentPane().add(tb, BorderLayout.NORTH);
-        getContentPane().add(spinfo, BorderLayout.CENTER);
-
-
-
-        
+        getContentPane().add(spinfo, BorderLayout.CENTER);  
 
     }
 
-    private void buscar() {
+    private void cargar() {
 
         nombreArchivo = Archivo.elegirArchivo();
         if (!nombreArchivo.equals("")) {
@@ -239,10 +227,8 @@ public class FrmPiano extends JFrame {
             DefaultTableModel dtm = new DefaultTableModel(strtbl, titulos);
             tblinfo.setModel(dtm);
 
-            JOptionPane.showMessageDialog(null, "Guardado");
-
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Limite excedido");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }
@@ -272,7 +258,17 @@ public class FrmPiano extends JFrame {
     }
 
     private void sonido() {
-        
+
+        Nodo actual = lista.getCabeza();
+
+        if(actual == null) {
+            JOptionPane.showMessageDialog(null, "No hay notas");
+        }
+
+        while(actual != null) {
+            ReproductorAudioMIDI.reproducirNota(actual.getNotamusical());
+            actual = actual.siguiente;
+        }
     }
     
 }
