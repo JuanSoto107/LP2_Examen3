@@ -16,8 +16,6 @@ public class ListaLigada {
         cabeza = null;
     }
 
-    
-
     public void agregarNodo(Nodo nodo) {
 
         if(cabeza == null) {
@@ -37,18 +35,17 @@ public class ListaLigada {
 
     }
 
-    public void almacenar() {
+    public void modificarNodo(Nodo nodo, NotaMusical notamusical) {
 
         Nodo actual = cabeza;
 
         while(actual != null) {
-            actual.getNotamusical();
+            if(actual == nodo) {
+                actual.setNotamusical(notamusical);
+                break;
+            }
             actual = actual.siguiente;
         }
-    }
-
-    public void modificarNodo(Nodo nodo) {
-
 
     }
 

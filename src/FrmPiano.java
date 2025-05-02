@@ -188,13 +188,11 @@ public class FrmPiano extends JFrame {
     int oct = 0;
 
     private ListaLigada lista = new ListaLigada();
+    NotaMusical notamusical = null;
 
     private void agregar() {
 
         try {
-
-            NotaMusical notamusical = null;
-
 
             int ind = cmbnotas.getSelectedIndex();
             int ind2 = cmbfiguras.getSelectedIndex();
@@ -234,25 +232,76 @@ public class FrmPiano extends JFrame {
     }
 
     private void modificar() {
+        
+        int seleccionado = tblinfo.getSelectedRow();
+
+        try {
+
+            int ind = cmbnotas.getSelectedIndex();
+            int ind2 = cmbfiguras.getSelectedIndex();
+            int ind3 = cmboctavas.getSelectedIndex();
     
+            Notas not2 = Notas.values()[ind];
+            Figura fig2 = Figura.values()[ind2];
+            int oct2 = Integer.parseInt(octavas[ind3]);
+    
+            DefaultTableModel modelo = (DefaultTableModel) tblinfo.getModel();
+            modelo.setValueAt(not2, seleccionado, 0);
+            modelo.setValueAt(fig2, seleccionado, 1);
+            modelo.setValueAt(oct2, seleccionado, 2);
+    
+            Nodo actual = lista.getCabeza();
+    
+            Nodo nodoseleccionado = lista.seleccionar(seleccionado);
+    
+            while(actual != null) {
+                if(actual == nodoseleccionado) {
+                    notamusical = new NotaMusical(not2, fig2, oct2);
+                    lista.modificarNodo(actual, notamusical);
+                }
+    
+                actual = actual.siguiente;
+            }
+        } catch(ArrayIndexOutOfBoundsException e) {
+            if(lista.seleccionar(seleccionado) == null) {
+                JOptionPane.showMessageDialog(null, "No hay nada \nque modificar");
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay indice seleccionado");
+            }
+        }
+
     }
 
     private void eliminar() {
-
-        Nodo actual = lista.getCabeza();
+        
         int seleccionado = tblinfo.getSelectedRow();
 
-        DefaultTableModel modelo = (DefaultTableModel) tblinfo.getModel();
-        modelo.removeRow(seleccionado);
+        try {
 
-        while(actual != null) {
-            if(actual == lista.seleccionar(seleccionado)) {
-                lista.eliminarNodo(actual);
-                break;
+            Nodo actual = lista.getCabeza();
+
+            
+            DefaultTableModel modelo = (DefaultTableModel) tblinfo.getModel();
+            modelo.removeRow(seleccionado);
+            
+            while(actual != null) {
+                if(actual == lista.seleccionar(seleccionado)) {
+                    lista.eliminarNodo(actual);
+                    break;
+                }
+                actual = actual.siguiente;
             }
-            actual = actual.siguiente;
-        }
 
+        } catch(ArrayIndexOutOfBoundsException e1) {
+            if(lista.seleccionar(seleccionado) == null) {
+                JOptionPane.showMessageDialog(null, "No hay nada \nque eliminar");
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay indice seleccionado");
+            } 
+              
+
+        }
+        
 
 
     }
